@@ -1,10 +1,10 @@
 {
-    "name": "angel-lsp",
-    "displayName": "AngelScript Language Server",
-    "description": "VSCode extensions for AngelScript Language Server",
+    "name": "nvgt-lsp",
+    "displayName": "NVGT Language Server",
+    "description": "VSCode extensions for NVGT Language Server",
     "author": "sashi0034",
     "license": "MIT",
-    "version": "0.3.9",
+    "version": "0.3.8",
     "repository": {
         "type": "git",
         "url": "https://github.com/sashi0034/angel-lsp"
@@ -14,7 +14,7 @@
         "Programming Languages"
     ],
     "keywords": [
-        "angelscript"
+        "NVGT"
     ],
     "bugs": {
         "url": "https://github.com/sashi0034/angel-lsp/issues"
@@ -24,39 +24,23 @@
     },
     "icon": "icons/angelscript.png",
     "activationEvents": [
-        "onLanguage:angelscript",
-        "onLanguage:angelscript-predefined",
-        "workspaceContains:**/*.as"
+        "workspaceContains:**/*.nvgt"
     ],
     "main": "./client/out/extension",
     "contributes": {
         "languages": [
             {
-                "id": "angelscript",
+                "id": "nvgt",
                 "extensions": [
-                    ".as"
+                    ".nvgt"
                 ],
                 "configuration": "./language-configuration.json",
                 "aliases": [
-                    "AngelScript"
+                    "NVGT"
                 ],
                 "icon": {
                     "light": "icons/angelscript.png",
                     "dark": "icons/angelscript.png"
-                }
-            },
-            {
-                "id": "angelscript-predefined",
-                "filenames": [
-                    "as.predefined"
-                ],
-                "configuration": "./language-configuration.json",
-                "aliases": [
-                    "AngelScript Predefined"
-                ],
-                "icon": {
-                    "light": "icons/angelscript-predefined.png",
-                    "dark": "icons/angelscript-predefined.png"
                 }
             }
         ],
@@ -70,39 +54,38 @@
         },
         "snippets": [
             {
-                "language": "angelscript",
+                "language": "nvgt",
                 "path": "./snippets.json"
             }
         ],
         "configuration": {
             "type": "object",
-            "title": "AngelScript configuration",
+            "title": "NVGT configuration",
             "properties": {
-                "angelScript.implicitMutualInclusion": {
-                    "scope": "window",
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Project files implicitly include each other (like C# or Java)"
+                "nvgt.standardLibrary.path": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Path to the NVGT include files"
                 },
-                "angelScript.formatter.maxBlankLines": {
+                "nvgt.formatter.maxBlankLines": {
                     "scope": "window",
                     "type": "number",
                     "default": 1,
                     "description": "Controls the maximum number of blank lines between contents."
                 },
-                "angelScript.formatter.indentSpaces": {
+                "nvgt.formatter.indentSpaces": {
                     "scope": "window",
                     "type": "number",
                     "default": 4,
                     "description": "Controls the number of spaces for indentation."
                 },
-                "angelScript.formatter.useTabIndent": {
+                "nvgt.formatter.useTabIndent": {
                     "scope": "window",
                     "type": "boolean",
                     "default": false,
                     "description": "Controls whether to use tabs for indentation instead of spaces."
                 },
-                "angelScript.trace.server": {
+                "nvgt.trace.server": {
                     "scope": "window",
                     "type": "string",
                     "enum": [
@@ -118,9 +101,10 @@
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
-        "compile": "tsc -b",
-        "watch": "tsc -b -w",
-        "lint": "eslint ./client/src ./server/src --ext .ts,.tsx",
+        "compile": "tsc -b && npm run postbuild:server",
+        "watch": "npm run postbuild:server && tsc -b -w",
+        "postbuild:server": "cd server && npm run postbuild && cd ..",
+        "lint": "eslint ./client/src ./server/src --ext .ts,.tsx --fix",
         "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
         "test": "sh ./scripts/e2e.sh"
     },

@@ -1,9 +1,11 @@
-/*
- * LanguageServer settings.
- * See package.json because the settings in VSCode are defined in it.
- */
+import * as fs from 'fs';
+import * as path from 'path';
+import * as os from 'os';
+
 export interface LanguageServerSettings {
-    implicitMutualInclusion: boolean;
+    standardLibrary: {
+		path: string
+	};
     formatter: {
         maxBlankLines: number;
         indentSpaces: number;
@@ -15,7 +17,9 @@ export interface LanguageServerSettings {
 }
 
 const defaultSettings: LanguageServerSettings = {
-    implicitMutualInclusion: false,
+	standardLibrary: {
+		path: getRoot()
+	},
     formatter: {
         maxBlankLines: 1,
         indentSpaces: 4,
@@ -28,17 +32,20 @@ const defaultSettings: LanguageServerSettings = {
 
 let globalSettings: LanguageServerSettings = defaultSettings;
 
-/*
- * Change the instance of global settings.
- */
 export function changeGlobalSettings(config: any) {
     globalSettings = globalSettings = <LanguageServerSettings>(config || defaultSettings);
+    globalSettings.standardLibrary.path = ensureIsDir(globalSettings.standardLibrary.path);
 }
 
-/*
- * Get the global settings.
- * The behavior of the LanguageServer configuration is controlled from here.
- */
 export function getGlobalSettings(): LanguageServerSettings {
     return globalSettings;
+}
+
+function getRoot(): string {
+	return os.platform() === 'win32' ? 'C:\\' : '/';
+}
+
+function ensureIsDir(dirpath: string): string {
+	if (!dirpath || !fs.existsSync(dirpath)) return getRoot();
+	return dirpath.endsWith(path.sep) ? dirpath : dirpath + path.sep;
 }

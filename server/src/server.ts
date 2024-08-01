@@ -1,3 +1,5 @@
+import * as path from "path";
+import * as fs from "fs";
 import {
     createConnection,
     TextDocuments,
@@ -15,9 +17,10 @@ import {
 import {
     TextDocument
 } from 'vscode-languageserver-textdocument';
+
 import {highlightModifiers, highlightTokens} from "./code/highlight";
 import {getFileLocationOfToken, serveDefinition, serveDefinitionAsToken} from "./serve/definition";
-import {getInspectedResult, getInspectedResultList, inspectFile} from "./serve/inspector";
+import {getInspectedResult, getInspectedResultList, inspectFile, clearInspectCache} from "./serve/inspector";
 import {serveCompletions} from "./serve/completion";
 import {serveSemanticTokens} from "./serve/semantiTokens";
 import {serveReferences} from "./serve/reference";
@@ -93,8 +96,9 @@ connection.onInitialize((params: InitializeParams) => {
 });
 
 function reloadSettings() {
-    connection.workspace.getConfiguration('angelScript').then((config) => {
+    connection.workspace.getConfiguration('nvgt').then((config) => {
         changeGlobalSettings(config);
+		clearInspectCache();
     });
 }
 
@@ -111,6 +115,12 @@ connection.onInitialized(() => {
 
     // Reload for workspace settings.
     reloadSettings();
+	// We immediately ask client to refresh
+	// This is due to us now having standard lib path and not knowing if a request to analyze a doc came in
+	// Otherwise we get phantom errors about potentially invalid include paths
+	// Should we find a more clever way of doing this?
+	// Could get expensive for larger projects, as right now we just go nuclear and nuke inspection cache
+	connection.languages.diagnostics.refresh();
 });
 
 // The global settings, used when the `workspace/configuration` request is not supported by the client.
@@ -119,8 +129,7 @@ connection.onInitialized(() => {
 
 connection.onDidChangeConfiguration(change => {
     reloadSettings();
-
-    connection.languages.diagnostics.refresh();
+    //connection.languages.diagnostics.refresh();
 });
 
 // Only keep settings for open documents
@@ -230,19 +239,6 @@ connection.onCompletion(
         const diagnosedScope = getInspectedResult(uri).analyzedScope;
         if (diagnosedScope === undefined) return [];
         return serveCompletions(diagnosedScope.fullScope, params.position, uri);
-
-        // return [
-        //     {
-        //         label: 'TypeScript',
-        //         kind: CompletionItemKind.Text,
-        //         data: 1
-        //     },
-        //     {
-        //         label: 'AngelAngel2',
-        //         kind: CompletionItemKind.Text,
-        //         data: 2
-        //     }
-        // ];
     }
 );
 
@@ -255,8 +251,8 @@ connection.onCompletionResolve(
             item.detail = 'TypeScript details';
             item.documentation = 'TypeScript documentation';
         } else if (item.data === 2) {
-            item.detail = 'AngelScript details';
-            item.documentation = 'AngelScript documentation';
+            item.detail = 'NVGT details';
+            item.documentation = 'NVGT documentation';
         }
         return item;
     }

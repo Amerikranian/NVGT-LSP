@@ -1,0 +1,1172 @@
+class any
+{
+	any();
+	any(const any&);
+	void store(?&in);
+	bool retrieve(?&out);
+}
+
+class array<T>
+{
+	uint length;
+	T& opIndex(uint index);
+	void insert_at(uint index, const T&in value);
+	void insert_at(uint index, const array<T>& arr);
+	void insert_last(const T&in value);
+	void remove_at(uint index);
+	void remove_last();
+	void remove_range(uint start, uint count);
+	void reserve(uint length);
+	void resize(uint length);
+	void sort_ascending();
+	void sort_ascending(uint startAt, uint count);
+	void sort_descending();
+	void sort_descending(uint startAt, uint count);
+	void reverse();
+	int find(const T&in if_handle_then_const value);
+	int find(uint startAt, const T&in if_handle_then_const value);
+	int find_by_ref(const T&in if_handle_then_const value);
+	int find_by_ref(uint startAt, const T&in if_handle_then_const value);
+	bool opEquals(const array<T>&in);
+	bool is_empty();
+	void sort(const less &in, uint startAt = 0, uint count = uint(-1));
+	uint size();
+	bool empty();
+	void push_back(const T&in);
+	void pop_back();
+	void insert(uint index, const T&in value);
+	void insert(uint index, const array<T>& arr);
+	void erase(uint);
+}
+
+class datetime
+{
+	uint get_year() const property;
+	uint get_month() const property;
+	uint get_day() const property;
+	uint get_hour() const property;
+	uint get_minute() const property;
+	uint get_second() const property;
+	bool set_date(uint year, uint month, uint day);
+	bool set_time(uint hour, uint minute, uint second);
+	bool set(uint year, uint month, uint day, uint hour, uint minute, uint second);
+	int64 opSub(const datetime &in);
+	datetime opAdd(int64 seconds);
+	datetime opAdd_r(int64 seconds);
+	datetime &opAddAssign(int64 seconds);
+	datetime opSub(int64 seconds);
+	datetime opSub_r(int64 seconds);
+	datetime &opSubAssign(int64 seconds);
+	bool opEquals(const datetime &in);
+	int opCmp(const datetime &in);
+}
+
+class dictionary
+{
+	dictionary({repeat {string, ?}});
+	dictionary &opAssign(const dictionary &in);
+	void set(const string &in, const ?&in);
+	bool get(const string &in, ?&out);
+	bool exists(const string &in);
+	bool is_empty();
+	uint get_size();
+	bool delete(const string &in);
+	void delete_all();
+	array<string> @get_keys();
+	dictionaryValue &opIndex(const string &in);
+	const dictionaryValue &opIndex(const string &in);
+	bool empty();
+	uint size();
+	void erase(const string &in);
+	void clear();
+	string serialize();
+}
+
+class file
+{
+	bool open(const string &in, const string &in);
+	bool close();
+	int get_size() property;
+	bool isEndOfFile();
+	string read(uint = 0);
+	string read_string(uint);
+	string read_line();
+	int64 read_int(uint);
+	uint64 read_uint(uint);
+	float read_float();
+	double read_double();
+	int write(const string &in);
+	int write_string(const string &in);
+	int write_int(int64, uint);
+	int write_uint(uint64, uint);
+	int write_float(float);
+	int write_double(double);
+	int get_pos();
+	int set_pos(int);
+	int seek(int);
+	int move_pos(int);
+	bool mostSignificantByteFirst;
+}
+
+class grid<t>
+{
+	grid();
+	grid(uint width, uint height);
+	grid({repeat {repeat_same T}});
+	T &opIndex(uint, uint);
+	const T &opIndex(uint, uint);
+	void resize(uint width, uint height);
+	uint width();
+	uint height();
+}
+
+class vector
+{
+	float x;
+	float y;
+	float z;
+	vector();
+	vector(const vector& in);
+	vector(float x, float y = 0, float z = 0);
+	vector &opAssign(const vector &in);
+	vector &opAddAssign(const vector &in);
+	vector &opSubAssign(const vector &in);
+	vector &opMulAssign(const float &in);
+	vector &opDivAssign(const float&in);
+	bool opEquals(const vector &in) const;
+	vector opAdd(const vector &in) const;
+	vector opSub(const vector &in) const;
+	vector opMul(const vector &in) const;
+	vector opDiv(const vector &in) const;
+	vector opMul(float) const;
+	vector opDiv(float) const;
+	float length() const;
+	float dot() const;
+	vector &normalize();
+	vector normalized() const;
+	vector rotate(const vector&in, const float) const;
+	float angle(const vector&in) const;
+}
+
+class complex
+{
+	float r;
+	float i;
+	complex();
+	complex(complex& in);
+	complex(float);
+	complex(float, float);
+	complex({{float, float}});
+	float abs();
+	complex ri;
+	complex ir;
+}
+
+class string
+{
+	string(int64);
+	string(double);
+	string(const string&in);
+	string(const string&in, ? &in, ? &in, ? &in); // up to 15
+	uint length();
+	void resize(uint);
+	bool is_empty();
+	string substr(uint start = 0, int count = -1);
+	string slice(int start = 0, int end = 0);
+	string replace_range(uint start, int count, const string& in);
+	string replace(const string& in search, const string& in replace, bool replace_all = true);
+	string& replace_this(const string& in search, const string& in replace, bool replace_all = true);
+	string replace_characters(const string&in character_list, const string&in replace_with);
+	string& replace_characters_this(const string&in character_list, const string&in replace_with);
+	string reverse(const string&in encoding = "UTF8");
+	string reverse_bytes();
+	string lower();
+	string& lower_this();
+	string upper();
+	string& upper_this();
+	bool is_lower(const string&in encoding = "UTF8");
+	bool is_upper(const string&in encoding = "UTF8");
+	bool is_punctuation(const string&in encoding = "UTF8");
+	bool is_alphabetic(const string&in encoding = "UTF8");
+	bool is_digits(const string&in encoding = "UTF8");
+	bool is_alphanumeric(const string&in encoding = "UTF8");
+	bool starts_with(const string&in);
+	bool ends_with(const string&in);
+	string trim_whitespace_left();
+	string& trim_whitespace_left_this();
+	string trim_whitespace_right();
+	string& trim_whitespace_right_this();
+	string trim_whitespace();
+	string& trim_whitespace_this();
+	string escape(bool strict_JSON = false);
+	string unescape();
+	void remove_UTF8_BOM();
+	int find_first(const string &in, uint start = 0);
+	int find_firstOf(const string &in, uint start = 0);
+	int find_firstNotOf(const string &in, uint start = 0);
+	int find_last(const string &in, int start = -1);
+	int find_lastOf(const string &in, int start = -1);
+	int find_lastNotOf(const string &in, int start = -1);
+	void insert(uint pos, const string &in other);
+	void erase(uint pos, int count = -1);
+	uint size();
+	bool empty();
+	int find(const string &in, uint start = 0);
+	int rfind(const string &in, int start = -1);
+	int unpacket(int offset, ?&out, ?&out, ?&out, ...); // up to 16 arguments, only use as many as needed.
+	array<string>@ split(const string &in);
+}
+
+bool coordinate_map_filter_callback(coordinate_map_area@);
+class coordinate_map_area
+{
+	const coordinate_map@ map;
+	const float minx;
+	const float maxx;
+	const float miny;
+	const float maxy;
+	const float minz;
+	const float maxz;
+	const float rotation;
+	uint64 flags;
+	any@ primary_data;
+	const string data1;
+	const string data2;
+	const string data3;
+	const int priority;
+	const bool framed;
+	void unframe();
+	void reframe();
+	void set(float minx, float maxx, float miny, float maxy, float minz, float maxz, float rotation);
+	void set_area(float minx, float maxx, float miny, float maxy, float minz, float maxz);
+	bool is_in_area(float x, float y, float z, float distance=0.0, coordinate_map_filter_callback@ filter_callback=null, int64 required_flags=0, uint64 excluded_flags=0);
+}
+class coordinate_map()
+{
+	coordinate_map();
+	coordinate_map_area@ add_area(float minx, float maxx, float miny, float maxy, float minz, float maxz, float rotation, any@ primary_data, const string data1, const string data2, const string data3, int priority, uint64 flags);
+	coordinate_map_area@[]@ get_areas(float x, float y, float z, float d=0.0, coordinate_map_filter_callback@ filter=null, int64 required_flags=0, int64 excluded_flags=0);
+	coordinate_map_area@ get_area(float x, float y, float z, int starting_priority=-1, float d=0.0, coordinate_map_filter_callback@ filter=null, int64 required_flags=0, int64 excluded_flags=0);
+	void reset();
+}
+
+class fast_mutex
+{
+	void lock();
+	void lock(uint milliseconds);
+	bool try_lock();
+	bool try_lock(uint milliseconds);
+	void unlock();
+}
+class fast_mutex_lock
+{
+	fast_mutex_lock(fast_mutex@);
+	~fast_mutex_lock();
+	void unlock();
+}
+
+ // git2.dll
+funcdef int git_repository_match_callback(git_repository@ repo, const string&in path, const string&in user_data);
+int git_last_error_class();
+string git_last_error_text();
+class git_repository
+{
+	int open(const string&in path);
+	int create(const string&in path);
+	bool close();
+	int add(const string&in);
+	int add_all(string[]@, int=0);
+	int add_all(string[]@, int, git_repository_match_callback@, const string&in=\"\;
+	int update_all(string[]@);
+	int update_all(string[]@, git_repository_match_callback@, const string&in=\"\;
+	int remove(const string&in);
+	int remove_all(string[]@);
+	int remove_all(string[]@, git_repository_match_callback@, const string&in=\"\;
+	git_repository_commit@ commit(const string&in author, const string&in author_email, const string&in message, const string&in ref=\"HEAD\;
+	git_repository_commit@ commit(const string&in author, const string&in author_email, const string&in committer, const string&in committer_email, const string&in message, const string&in ref=\"HEAD\;
+	string commit_diff(git_repository_commit@+ commit1, git_repository_commit@+ commit2, uint context_lines=3, uint interhunk_lines=0, uint flags=0, uint format=1, string[]@+ pathspec={}, const string&in old_prefix=\"a\", const string&in new_prefix=\"b\;
+	git_repository_commit@ commit_lookup(const string&in);
+	git_repository_commit_iterator@ commit_iterate(string[]@ path_filter={}, const string&in author_filter='', const string&in message_filter='', uint64 min_time_filter=0, uint64 max_time_filter=0, uint start=0, uint count=0);
+	git_repository_entry@ get_entry(uint index);
+	const int entry_count;
+	const int is_empty;
+	const string path;
+	const string workdir;
+	const bool active;
+}
+class git_repository_entry
+{
+	const uint ctime;
+	const uint mtime;
+	const uint get_file_size;
+	const string oid;
+	const string path;
+}
+class git_repository_commit
+{
+	git_repository_commit@ get_parent(uint index);
+	const uint time;
+	const int parent_count;
+	const string id;
+	const string message;
+	const string summary;
+	const string body;
+	const string raw_header;
+	const string committer;
+	const string committer_email;
+	const string author;
+	const string author_email;
+}
+class git_repository_commit_iterator
+{
+	const git_repository_commit@ commit;
+	git_repository_commit@ opImplCast();
+	bool opPostInc();
+}
+
+class internet_request
+{
+	internet_request();
+	internet_request(const string&in URL, bool autoperform = true);
+	internet_request(const string&in URL, const string&in path, bool autoperform = true);
+	const bool no_curl;
+	const bool complete;
+	const bool in_progress;
+	bool follow_redirects;
+	int max_redirects;
+	const double bytes_downloaded;
+	const double download_size;
+	const double download_percent;
+	const double bytes_uploaded;
+	const double upload_size;
+	const double upload_percent;
+	const int status_code;
+	const double total_time;
+	const string url;
+	const string final_url;
+	const string response_body;
+	const string response_headers;
+	string debug_file;
+	string user_agent;
+	const string path;
+	const string auth_username;
+	const string auth_password;
+	bool perform();
+	bool perform(const string &in URL);
+	bool post(const string &in URL, const string &in payload, const string &in path = "");
+	bool mail(const string &in from, const string &in to, const string &in subject, const string &in body);
+	void set_url(const string &in);
+	void set_path(const string &in);
+	void set_authentication(const string &in username, const string &in password);
+	void set_payload(const string &in);
+	void set_mail(const string &in from, const string &in to);
+	void set_header(const string &in key, const string &in value);
+	void reset();
+}
+
+class json_array
+{
+	bool escape_unicode;
+	const bool empty;
+	var@ get_opIndex(uint index) property;
+	void set_opIndex(uint index, const var&in value) property;
+	var@ opCall(const string&in query);
+	void add(var@ value);
+	void remove(uint index);
+	bool is_array(uint index);
+	bool is_null(uint index);
+	bool is_object(uint index);
+	uint size();
+	void clear();
+	string stringify(int indent = 0, int step = -1);
+}
+
+class json_object
+{
+	bool escape_unicode;
+	const bool empty;
+	var@ get_opIndex(const string&in key) property;
+	void set_opIndex(const string&in key, const var&in value) property;
+	var@ opCall(const string&in query);
+	void set(const string&in key, var@ value);
+	void remove(const string&in key);
+	bool exists(const string&in);
+	bool is_array(const string&in key);
+	bool is_null(const string&in key);
+	bool is_object(const string&in key);
+	uint size();
+	void clear();
+	string[]@ get_keys();
+	string stringify(int indent = 0, int step = -1);
+}
+
+class library
+{
+	const bool active;
+	bool load(const string&in);
+	bool unload();
+	dictionary@ call(const string&in, ?&in=null, ?&in=null, ?&in=null, ?&in=null, ?&in=null, ?&in=null, ?&in=null, ?&in=null, ?&in=null, ?&in=null);
+}
+
+class mutex
+{
+	void lock();
+	void lock(uint milliseconds);
+	bool try_lock();
+	bool try_lock(uint milliseconds);
+	void unlock();
+}
+class mutex_lock
+{
+	mutex_lock(mutex@);
+	~mutex_lock();
+	void unlock();
+}
+class named_mutex
+{
+	named_mutex(const string&in name);
+	void lock();
+	bool try_lock();
+	void unlock();
+}
+class named_mutex_lock
+{
+	named_mutex_lock(named_mutex@);
+	~named_mutex_lock();
+	void unlock();
+}
+
+const int event_type_none;
+const int event_type_connect;
+const int event_type_disconnect;
+const int event_type_receive;
+class network_event
+{
+	const int type;
+	const uint peer_id;
+	const uint channel;
+	const string message;
+	network_event& opAssign(network_event& e);
+}
+class network
+{
+	network();
+	void destroy();
+	bool setup_client(uint8 max_channels, uint16 max_peers);
+	bool setup_server(uint16 bind_port, uint8 max_channels, uint16 max_peers);
+	bool setup_local_server(uint16 bind_port, uint8 max_channels, uint16 max_peers);
+	bool connect(const string& in hostname, uint16 port);
+	network_event@ request();
+	string get_peer_address(uint peer_id);
+	uint get_peer_average_round_trip_time(uint peer_id);
+	bool send(uint peer_id, const string& in message, uint8 channel, bool reliable = true);
+	bool send_reliable(uint peer_id, const string& in message, uint8 channel);
+	bool send_unreliable(uint peer_id, const string& in message, uint8 channel);
+	bool disconnect_peer_softly(uint peer_id);
+	bool disconnect_peer(uint peer_id);
+	bool disconnect_peer_forcefully(uint peer_id);
+	uint[]@ get_peer_list();
+	void set_bandwidth_limits(uint incoming, uint outgoing);
+	const uint connected_peers;
+	uint duplicate_peers;
+	const uint bytes_received;
+	const uint bytes_sent;
+	const bool active;
+}
+
+const int PACK_OPEN_MODE_NONE;
+const int PACK_OPEN_MODE_APPEND;
+const int PACK_OPEN_MODE_CREATE;
+const int PACK_OPEN_MODE_READ;
+class pack
+{
+	pack();
+	bool open(const string &in filename, uint mode, bool memload = false);
+	bool close();
+	bool add_file(const string &in disc_filename, const string& in pack_filename, bool replace = false);
+	bool add_memory(const string &in pack_filename, const string& in data, bool replace = false);
+	bool delete_file(const string &in);
+	bool file_exists(const string &in);
+	string get_file_name(int index);
+	array<string>@ list_files();
+	uint get_file_size(const string &in);
+	uint get_file_offset(const string &in);
+	string read_file(const string &in pack_filename, uint offset, uint size);
+	bool raw_seek(int offset);
+	bool stream_close(uint stream_id);
+	uint stream_open(const string &in pack_filename, uint offset = 0);
+	string stream_read(uint stream_id, uint size);
+	uint stream_pos(uint stream_id);
+	uint stream_seek(uint stream_id, uint offset, int seek_mode);
+	uint stream_size(uint stream_index);
+	const bool active;
+	const bool size;
+}
+
+funcdef int pathfinder_callback(int x, int y, int z, string user_data);
+class pathfinder
+{
+	pathfinder();
+	void set_callback_function(pathfinder_callback@);
+	void cancel();
+	void reset();
+	vector[]@ find(int start_x, int start_y, int start_z, int end_x, int end_y, int end_z, string user_data);
+	bool allow_diagonals=true;
+	bool automatic_reset=false;
+	int desperation_factor=0;
+	int search_range=0;
+	const bool solving;
+	const float total_cost;
+}
+
+class random_pcg
+{
+	random_pcg(uint seed=random_seed());
+	void seed(uint seed=random_seed());
+	uint next();
+	float nextf();
+	int range(int min, int max);
+}
+class random_well
+{
+	random_well(uint seed=random_seed());
+	void seed(uint seed=random_seed());
+	uint next();
+	float nextf();
+	int range(int min, int max);
+}
+class random_gamerand
+{
+	random_gamerand(uint seed=random_seed());
+	void seed(uint seed=random_seed());
+	uint next();
+	float nextf();
+	int range(int min, int max);
+}
+class random_xorshift
+{
+	random_xorshift(uint64 seed=random_seed64());
+	void seed(uint seed=random_seed64());
+	uint next();
+	float nextf();
+	int range(int min, int max);
+}
+
+enum regexp_options
+	/// Copied from POCO header file: * Options marked [ctor] can be passed to the constructor of regexp objects.
+	/// * Options marked [match] can be passed to match, extract, split and subst.
+	/// * Options marked [subst] can be passed to subst.
+	/// See the PCRE documentation for more information.
+{
+	RE_CASELESS = 0x00000001, /// case insensitive matching (/i) [ctor]
+	RE_MULTILINE = 0x00000002, /// enable multi-line mode; affects ^ and $ (/m) [ctor]
+	RE_DOTALL = 0x00000004, /// dot matches all characters, including newline (/s) [ctor]
+	RE_EXTENDED = 0x00000008, /// totally ignore whitespace (/x) [ctor]
+	RE_ANCHORED = 0x00000010, /// treat pattern as if it starts with a ^ [ctor, match]
+	RE_DOLLAR_END_ONLY = 0x00000020, /// dollar matches end-of-string only, not last newline in string [ctor]
+	RE_EXTRA = 0x00000040, /// enable optional PCRE functionality [ctor]
+	RE_NOT_BOL = 0x00000080, /// circumflex does not match beginning of string [match]
+	RE_NOT_EOL = 0x00000100, /// $ does not match end of string [match]
+	RE_UNGREEDY = 0x00000200, /// make quantifiers ungreedy [ctor]
+	RE_NOT_EMPTY = 0x00000400, /// empty string never matches [match]
+	RE_UTF8 = 0x00000800, /// assume pattern and subject is UTF-8 encoded [ctor]
+	RE_NO_AUTO_CAPTURE = 0x00001000, /// disable numbered capturing parentheses [ctor, match]
+	RE_NO_UTF8_CHECK = 0x00002000, /// do not check validity of UTF-8 code sequences [match]
+	RE_FIRSTLINE = 0x00040000, /// an unanchored pattern is required to match before or at the first newline in the subject string, though the matched text may continue over the newline [ctor]
+	RE_DUPNAMES = 0x00080000, /// names used to identify capturing subpatterns need not be unique [ctor]
+	RE_NEWLINE_CR = 0x00100000, /// assume newline is CR ('\r'), the default [ctor]
+	RE_NEWLINE_LF = 0x00200000, /// assume newline is LF ('\n') [ctor]
+	RE_NEWLINE_CRLF = 0x00300000, /// assume newline is CRLF ("\r\n") [ctor]
+	RE_NEWLINE_ANY = 0x00400000, /// assume newline is any valid Unicode newline character [ctor]
+	RE_NEWLINE_ANY_CRLF = 0x00500000, /// assume newline is any of CR, LF, CRLF [ctor]
+	RE_GLOBAL = 0x10000000, /// replace all occurences (/g) [subst]
+	RE_NO_VARS = 0x20000000 /// treat dollar in replacement string as ordinary character [subst]
+}
+class regexp
+{
+	regexp(const string&in pattern, int options = RE_UTF8);
+	bool opEquals(const string&in subject);
+	bool match(const string&in subject, uint64 offset = 0);
+	bool match(const string&in subject, uint64 offset, int options);
+	string extract(const string&in subject, uint64 offset = 0);
+	string extract(const string&in subject, uint64 offset, int options);
+	string[]@ split(const string&in subject, uint64 offset = 0);
+	string[]@ split(const string&in subject, uint64 offset, int options = 0);
+}
+
+class rw_lock
+{
+	void read_lock();
+	bool try_read_lock();
+	void write_lock();
+	bool try_write_lock();
+	void unlock();
+}
+class rw_scoped_lock
+{
+	rw_scoped_lock(rw_lock@, bool write_lock);
+	~rw_scoped_lock();
+}
+class rw_read_lock
+{
+	rw_read_lock(rw_lock@);
+	~rw_read_lock();
+}
+class rw_write_lock
+{
+	rw_write_lock(rw_lock@);
+	~rw_write_lock();
+}
+
+class script_function
+{
+	uint max_statement_count=0;
+	const string decl;
+	const string name();
+	const string script;
+	dictionary@ call(dictionary@ arguments, string[]@ errors=null);
+	dictionary@ opCall(dictionary@ arguments, string[]@ errors=null);
+}
+class script_module
+{
+	uint max_statement_count=0;
+	int add_section(const string&in name, const string&in code, uint line_offset=0);
+	int build(string[]@ errors=null);
+	string get_bytecode(bool strip_debug_info);
+	int set_bytecode(const string&in bytecode, bool&out was_debug_info_stripped, string[]@ errors=null);
+	int reset_globals(string[]@ errors=null);
+	int bind_all_imported_functions();
+	int bind_imported_function(uint index, script_function@ function);
+	int compile_global(const string&in section_name, const string&in declaration, uint line_offset=0);
+	int compile_function(const string&in section_name, const string&in function_code, string[]@ errors=null, bool add_to_module=false, uint line_offset=0);
+	script_function@ get_function_by_decl(const string&in decl);
+	script_function@ get_function_by_index(uint index);
+	script_function@ get_function_by_name(const string&in name);
+	void discard();
+	any@ get_global(uint index);
+	const string get_global_decl(uint index);
+	const string get_global_name(uint index);
+	int get_global_index_by_decl(const string&in decl);
+	int get_global_index_by_name(const string&in name);
+	uint get_function_count();
+	uint get_global_count();
+	uint get_imported_function_count();
+	uint set_access_mask(uint subsystems);
+	const string get_imported_function_decl(uint index);
+	const string get_imported_function_module(uint index);
+	int get_imported_function_index(const string&in decl);
+}
+
+funcdef void sound_close_callback(const string& in user_data);
+funcdef uint sound_length_callback(const string&in user_data);
+funcdef int sound_read_callback(string &out buffer, uint length, const string&in user_data);
+funcdef bool sound_seek_callback(uint offset, const string&in user_data);
+class sound
+{
+	sound();
+	bool close();
+	bool load(const string &in, pack@ = null, bool allow_preloads = true);
+	bool load(sound_close_callback@, sound_length_callback@, sound_read_callback@, sound_seek_callback@, const string&in user_data);
+	bool load_url(const string &in);
+	bool stream(const string &in, pack@ = null);
+	bool push_memory(const string &in audiodata, bool stream_end = false, int pcm_samplerate = 0, int pcm_channels = 0);
+	bool set_position(float listener_x, float listener_y, float listener_z, float sound_x, float sound_y, float sound_z, float rotation, float pan_step, float volume_step);
+	bool set_mixer(mixer@ = null);
+	bool set_impulse_response(const string&in response_data, float dry, float wet);
+	void set_hrtf(bool = true);
+	bool set_sound_environment(sound_environment@ = null);
+	void set_length(float = 0);
+	bool set_fx(const string &in fx, int index = 0);
+	bool play();
+	bool play_wait();
+	bool play_looped();
+	bool pause();
+	bool stop();
+	bool seek(float);
+	bool get_active() const property;
+	bool get_playing() const property;
+	bool get_paused() const property;
+	bool get_sliding() const property;
+	bool get_pan_sliding() const property;
+	bool get_pitch_sliding() const property;
+	bool get_volume_sliding() const property;
+	float get_length() const property;
+	float get_position() const property;
+	float get_pitch() const property;
+	void set_pitch(float) property;
+	bool slide_pitch(float, uint);
+	float get_pan() const property;
+	void set_pan(float) property;
+	bool slide_pan(float, uint);
+	float get_volume() const property;
+	void set_volume(float) property;
+	bool slide_volume(float, uint);
+}
+
+class mixer
+{
+	bool set_fx(const string &in fx, int index = 0);
+	bool set_impulse_response(const string&in response_data, float dry, float wet);
+	bool set_mixer(mixer@ = null);
+	bool get_sliding() const property;
+	bool get_pan_sliding() const property;
+	bool get_pitch_sliding() const property;
+	bool get_volume_sliding() const property;
+	float get_pitch() const property;
+	void set_pitch(float) property;
+	bool slide_pitch(float, uint);
+	float get_pan() const property;
+	void set_pan(float) property;
+	bool slide_pan(float, uint);
+	float get_volume() const property;
+	void set_volume(float) property;
+	bool slide_volume(float, uint);
+}
+
+class spinlock_mutex
+{
+	void lock();
+	void lock(uint milliseconds);
+	bool try_lock();
+	bool try_lock(uint milliseconds);
+	void unlock();
+}
+class spinlock_mutex_lock
+{
+	~mutex_lock();
+	void unlock();
+}
+
+#include "sqlite3constants.nvgt"
+funcdef int sqlite3authorizer(string user_data, int action, string extra1, string extra2, string extra3, string extra4);
+class sqlite3statement
+{
+	const string expanded_sql_statement;
+	const string sql_statement;
+	const int column_count;
+	const int bind_param_count;
+	int step();
+	int reset();
+	int bind_blob(int index, const string&in blob, bool transient=true);
+	int bind_double(int index, double value);
+	int bind_int(int index, int value);
+	int bind_int64(int index, asINT64 value);
+	int bind_null(int index);
+	int bind_text(int index, const string&in text, bool transient=true);
+	int bind_param_index(const string&in name);
+	string bind_param_name(int index);
+	int clear_bindings();
+	string column_blob(int index);
+	int column_bytes(int index);
+	string column_decltype(int index);
+	double column_double(int index);
+	int column_int(int index);
+	asINT64 column_int64(int index);
+	string column_name(int index);
+	int column_type(int index);
+	string column_text(int index);
+}
+class sqlite3
+{
+	int64 last_insert_rowid;
+	const asINT64 rows_changed;
+	const asINT64 total_rows_changed;
+	const bool active;
+	sqlite3();
+	sqlite3(const string& filename, int mode=SQLITE_OPEN_READWRITE|SQLITE_OPEN_CREATE);
+	int close();
+	int open(const string&in filename, int mode=SQLITE_OPEN_READWRITE|SQLITE_OPEN_CREATE);
+	sqlite3statement* prepare(const string&in statement, int&out statement_tail=void);
+	int execute(const string&in statements, string[][]@ results=null);
+	int limit(int id, int val);
+	int set_authorizer(sqlite3authorizer@, const string&in user_data="");
+	int get_last_error();
+	string get_last_error_text();
+}
+
+funcdef void thread_callback(dictionary@);
+enum thread_priority
+{
+	THREAD_PRIORITY_LOWEST,
+	THREAD_PRIORITY_LOW,
+	THREAD_PRIORITY_NORMAL,
+	THREAD_PRIORITY_HIGH,
+	THREAD_PRIORITY_HIGHEST
+}
+class thread
+{
+	const int id;
+	const bool running;
+	thread_priority priority;
+	string name;
+	thread();
+	thread(const string&in name);
+	void join();
+	bool join(uint milliseconds);
+	void start(thread_callback@, dictionary@ = null);
+	void wake_up();
+}
+
+funcdef uint timer_callback(string timer_id, string callback_data);
+class timer_queue
+{
+	void set(const string&in timer_id, timer_callback@ callback, const string&in callback_data, uint64 timeout, bool repeating);
+	void set(const string&in timer_id, timer_callback@ callback, uint64 timeout, bool repeating);
+	uint64 elapsed(const string&in timer_id);
+	uint64 timeout(const string&in timer_id);
+	bool is_repeating(const string&in timer_id);
+	bool exists(const string&in timer_id);
+	bool restart(const string&in timer_id);
+	bool set_timeout(const string&in id, uint64 timeout, bool repeating);
+	bool delete(const string&in timer_id);
+	int size();
+	void loop();
+}
+
+class tts_voice
+{
+	int rate;
+	//int pitch;
+	const int voice;
+	const int voice_count;
+	int volume;
+	const bool speaking;
+	bool speak(const string &in, bool interrupt = false);
+	bool speak_interrupt(const string &in);
+	bool speak_to_file(const string& in, const string &in filename);
+	bool speak_wait(const string &in, bool interrupt = false);
+	string speak_to_memory(const string &in);
+	bool speak_interrupt_wait(const string &in);
+	bool refresh();
+	bool stop();
+	array<string>@ list_voices();
+	string get_voice_name(int index);
+	bool set_voice(int index);
+}
+
+// functions to convert integers and doubles from and to IEEE notation, angelscript addon
+	float fp_from_IEEE(uint);
+	uint fp_to_IEEE(float);
+	double fpFromIEEE(uint64);
+	uint64 fpToIEEE(double);
+	bool close_to(double a, double b, double epsilon)
+
+
+// math functions, mostly angelscript addon
+	double cos(double);
+	double sin(double);
+	double tan(double);
+	double acos(double);
+	double asin(double);
+	double atan(double);
+	double atan2(double,double);
+	double cosh(double);
+	double sinh(double);
+	double tanh(double);
+	double log(double);
+	double log10(double);
+	double pow(double, double);
+	double sqrt(double);
+	double ceil(double);
+	double abs(double);
+	double floor(double);
+	double fraction(double);
+	double round(double n, int p);
+
+// format a number into a string or convert a string into a number
+	string format_int(int64 val, const string &in options = \"\", uint width = 0);
+	string format_uint(uint64 val, const string &in options = \"\", uint width = 0);
+	string format_float(double val, const string &in options = \"\", uint width = 0, uint precision = 0);
+	int64 parse_int(const string &in, uint base = 10, uint &out byteCount = 0);
+	uint64 parse_uint(const string &in, uint base = 10, uint &out byteCount = 0);
+	double parse_float(const string &in, uint &out byteCount = 0);
+
+string join(const array<string> &in elements, const string &in delimiter);
+
+// security
+	string string_aes_encrypt(const string& in, const string &in);
+	string string_aes_decrypt(const string& in, const string &in);
+	string string_hash_md5(const string& in, bool binary = false);
+	string string_hash_sha1(const string& in, bool binary = false);
+	string string_hash_sha224(const string& in, bool binary = false);
+	string string_hash_sha256(const string& in, bool binary = false);
+	string string_hash_sha384(const string& in, bool binary = false);
+	string string_hash_sha512(const string& in, bool binary = false);
+	string random_bytes(uint length);
+	string byteshift_encrypt(string data, uint offset, uint data_length, uint8 even, uint8 odd);
+	string byteshift_decrypt(string data, uint offset, uint data_length, uint8 even, uint8 odd);
+	string generate_system_fingerprint(const string&in identifier="");
+	uint HOTP(const string&in secret, uint64 counter, uint digits=6);
+	uint crc32(const string& in);
+
+// compression/serialization
+	string string_deflate(const string& in, int compression_level = 9);
+	string string_inflate(const string& in);
+	dictionary@ deserialize(const string&in);
+	string packet(?&in, ?&in, ?&in); // up to 16 arguments.
+	var@ parse_json(const string&in);
+
+// encode/decode
+	string string_to_hex(const string& in);
+	string hex_to_string(const string& in);
+	string string_base32_encode(const string& in);
+	string string_base32_decode(const string& in);
+	string string_base32_normalize(const string& in);
+	enum string_base64_options { STRING_BASE64_DEFAULT, STRING_BASE64_URL, STRING_BASE64_PADLESS }
+	string string_base64_encode(const string& in, string_base64_options=STRING_BASE64_DEFAULT);
+	string string_base64_decode(const string& in, string_base64_options=STRING_BASE64_PADLESS);
+	string url_encode(const string& in);
+	string url_decode(const string& in);
+	uint8 character_to_ascii(const string&in);
+	string ascii_to_character(uint8);
+	string float_to_bytes(float f);
+	string double_to_bytes(double d);
+	float bytes_to_float(const string&in s);
+	double bytes_to_double(const string&in s);
+	int utf8size(const string&in character);
+	int utf8prev(const string&in text, int offset=0);
+	int utf8next(const string&in text, int offset=0);
+	string string_recode(const string&in text, const string&in in_encoding, const string&in out_encoding); // We have ascii, latin-1, latin-2, latin-9, UTF8, UTF16, UTF32, windows-1250, windows-1251, and windows-1252. There may be an editional modular set of encodings later.
+
+// OS and process specific
+	enum OPERATING_SYSTEM {
+		OS_FREE_BSD,
+		OS_AIX,
+		OS_HPUX,
+		OS_TRU64,
+		OS_LINUX,
+		OS_DARWIN,
+		OS_NET_BSD,
+		OS_OPEN_BSD,
+		OS_IRIX,
+		OS_SOLARIS,
+		OS_QNX,
+		OS_VXWORKS,
+		OS_CYGWIN,
+		OS_NACL,
+		OS_ANDROID,
+		OS_UNKNOWN_UNIX,
+		OS_WINDOWS_NT,
+		OS_VMS
+	}
+	enum ARCHITECTURE {
+		ARCH_ALPHA,
+		ARCH_IA32,
+		ARCH_IA64,
+		ARCH_MIPS,
+		ARCH_HPPA,
+		ARCH_PPC,
+		ARCH_POWER,
+		ARCH_SPARC,
+		ARCH_AMD64,
+		ARCH_ARM,
+		ARCH_M68K,
+		ARCH_S390,
+		ARCH_SH,
+		ARCH_NIOS2,
+		ARCH_AARCH64,
+		ARCH_ARM64,
+		ARCH_RISCV64,
+		ARCH_RISCV32,
+		ARCH_LOONGARCH64
+	}
+	const string COMMAND_LINE;
+	bool environment_variable_exists(const string&in);
+	string expand_environment_variables(const string& in);
+	string read_environment_variable(const string&in, const string&in default_value = "");
+	void write_environment_variable(const string&in variable, const string&in value);
+	string clipboard_get_text();
+	bool clipboard_set_text(const string& in);
+	bool clipboard_set_raw_text(const string& in); // Assumed to be native system encoding not UTF8.
+	bool chdir(const string& in);
+	string cwdir();
+	bool urlopen(const string&in url);
+	bool run(const string& in filename, const string& in command_line, bool wait_for_completion, bool run_hidden);
+	bool is_debugger_present();
+	void debug_message(const string&in);
+	void debug_break();
+	void debug_break(const string&in);
+	void next_keyboard_layout();
+	string[]@ get_preferred_locales();
+	dictionary@ system_get_memory_info();
+	dictionary@ system_get_cpu_info();
+	dictionary@ system_get_disk_usage_info(const string&in root);
+	dictionary@ system_get_info();
+	double system_get_uptime();
+	array<double>@ system_get_load_average();
+	uint64 process_get_pid();
+	dictionary@ process_get_memory_info(uint64 pid);
+	dictionary@ process_get_cpu_info(uint64 pid);
+	dictionary@ process_get_time_info(uint64 pid);
+	dictionary@ process_get_state(uint64 pid);
+	dictionary@ process_get_user(uint64 pid);
+	dictionary@ process_get_executable(uint64 pid);
+	const string PLATFORM;
+	const string PLATFORM_DISPLAY_NAME;
+	const string PLATFORM_VERSION;
+	const string PLATFORM_ARCHITECTURE;
+	const OPERATING_SYSTEM OS;
+	const ARCHITECTURE PROCESSOR_ARCHITECTURE;
+	const uint PROCESSOR_COUNT;
+	const string system_node_name;
+	const string system_node_id;
+	const bool system_is_unix;
+	const bool system_is_windows;
+
+// time
+	const int DATE_YEAR;
+	const int DATE_MONTH;
+	const string DATE_MONTH_NAME;
+	const int DATE_DAY;
+	const int DATE_WEEKDAY;
+	const string DATE_WEEKDAY_NAME;
+	const int TIME_HOUR;
+	const int TIME_MINUTE;
+	const int TIME_SECOND;
+	const int TIMEZONE_BASE_OFFSET;
+	const int TIMEZONE_DST_OFFSET;
+	const int TIMEZONE_OFFSET;
+	const string TIMEZONE_NAME;
+	const string TIMEZONE_DST_NAME;
+	const string TIMEZONE_STANDARD_NAME;
+	bool speedhack_protection=true;
+	uint64 ticks();
+	uint64 secure_ticks();
+	uint64 get_TIME_STAMP() property;
+
+// UI
+	enum message_box_flags {MESSAGE_BOX_ERROR, MESSAGE_BOX_WARNING, MESSAGE_BOX_INFORMATION, MESSAGE_BOX_BUTTONS_LEFT_TO_RIGHT, MESSAGE_BOX_BUTTONS_RIGHT_TO_LEFT}
+	int message_box(string title, string text, string[]@ buttons, uint flags=0); // grave (`) prepending button text is default enter key, tilda (~) before text means default cancel.
+	int alert(string, string, bool can_cancel = false, uint flags = 0);
+	int question(const string& in, const string& in, bool can_cancel = false, uint flags = 0);
+	string input_box(const string& in, const string& in, const string& in = '', uint64 = 0);
+	bool info_box(const string& in, const string& in, const string& in, uint64 = 0);
+
+void print(? &in, ? &in, ? &in); // up to 16
+void println(? &in, ? &in, ? &in); // up to 16
+
+void exit();
+
+// pseudorandom
+	bool random_set_state(const string&in state);
+	string random_get_state();
+	uint random_seed();
+	uint64 random_seed64();
+	int random(int, int);
+	bool random_bool(int percent = 50);
+	string random_character(const string&in min_ascii, const string&in max_ascii);
+
+double tinyexpr(const string& expression);
+string number_to_words(int64 the_number, bool include_and = true);
+bool natural_number_sort(const string&in a, const string&in b);
+uint string_distance(const string&in A, const string&in B, uint insert_cost=1, uint delete_cost=1, uint replace_cost=1);
+
+// input
+	bool key_pressed(uint);
+	bool key_down(uint);
+	bool key_repeating(uint);
+	bool key_released(uint);
+	bool key_up(uint);
+	uint[]@ keys_pressed();
+	uint[]@ keys_down();
+	uint[]@ keys_released();
+	int total_keys_down();
+	bool mouse_pressed(uint8);
+	bool mouse_down(uint8);
+	bool mouse_released(uint8);
+	bool mouse_up(uint8);
+	void mouse_update();
+	const int MOUSE_X;
+	const int MOUSE_Y;
+	const int MOUSE_Z;
+	string get_characters();
+	bool install_keyhook();
+	void uninstall_keyhook();
+
+// screen reader speech
+	const bool SCREEN_READER_AVAILABLE;
+	string screen_reader_detect();
+	bool screen_reader_has_speech();
+	bool screen_reader_has_braille();
+	bool screen_reader_is_speaking();
+	bool screen_reader_output(const string &in, bool interrupt);
+	bool screen_reader_speak(const string &in, bool interrupt);
+	bool screen_reader_braille(const string &in);
+	bool screen_reader_silence();
+
+// window
+	bool show_window(const string& in);
+	bool destroy_window();
+	bool hide_window();
+	bool is_window_active();
+	void wait(int);
+
+// filesystem
+	bool directory_exists(const string& in);
+	bool directory_create(const string& in);
+	bool directory_delete(const string& in);
+	bool file_exists(const string& in);
+	bool file_delete(const string& in);
+	bool file_copy(const string& in, const string& in);
+	bool file_hard_link(const string& in, const string&in);
+	//int file_hard_link_count(const string& in);
+	bool file_move(const string& in, const string& in);
+	string[]@ find_directories(const string& in);
+	string[]@ find_files(const string& in);
+	int64 file_get_size(const string& in);
+	datetime file_get_date_created(const string& in);
+	datetime file_get_date_modified(const string& in);
+	bool fnmatch(const string&in data, const string&in pattern);
+
+// sound global functions
+	float get_sound_master_volume() property;
+	void set_sound_master_volume(float) property;
+	uint get_sound_input_device() property;
+	void set_sound_input_device(uint) property;
+	uint get_sound_input_device_count() property;
+	array<string>@ get_sound_input_devices() property;
+	uint get_sound_output_device() property;
+	void set_sound_output_device(uint) property;
+	uint get_sound_output_device_count() property;
+	array<string>@ get_sound_output_devices() property;
+	bool get_sound_global_hrtf() property;
+	void set_sound_global_hrtf(bool) property;
+	mixer@ sound_default_mixer;
+
+// Regular expressions (currently wrapps PCRE2 via poco, see regexp in classes.txt for lower level use)
+	bool regexp_match(const string&in text, const string&in pattern);
+	bool regexp_search(const string&in text, const string&in pattern);
+	string regexp_replace(const string&in text, const string&in pattern, const string&in replace_with);
+
+// script and concurrency
+	const bool SCRIPT_COMPILED;
+	const string SCRIPT_EXECUTABLE;
+	const string SCRIPT_CURRENT_FILE;
+	const string SCRIPT_CURRENT_FUNCTION;
+	const int SCRIPT_CURRENT_LINE;
+	script_module@ script_get_module(const string&in module_name, int mode=1);
+	string get_call_stack();
+	int get_call_stack_size();
+	string get_exception_info();
+	int get_exception_line();
+	string get_exception_function();
+	string get_exception_file();
+	void throw(const string& msg);
+	void start_profiling();
+	void stop_profiling();
+	void reset_profiler();
+	string generate_profile();
+	int garbage_collect_mode;
+	int garbage_collect_auto_frequency;
+	void garbage_collect(bool full = true);
+	funcdef void coroutine(dictionary@ arguments);
+	void create_coroutine(coroutine@ function, dictionary@ arguments);
+	void yield(); // For coroutines, use thread_yield for threads. May make this less confusing later.
+	void acquire_exclusive_lock();
+	void release_exclusive_lock();
+	void acquire_shared_lock();
+	void release_shared_lock();
+	const thread@ thread_current;
+	uint thread_current_id();
+	bool thread_sleep(uint milliseconds); // Returns true if successful or false if interrupted by thread.wake_up, only use from threads created from the script.
+	void thread_yield();

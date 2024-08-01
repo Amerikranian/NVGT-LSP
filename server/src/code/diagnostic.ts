@@ -3,7 +3,7 @@ import {Diagnostic, DiagnosticSeverity} from "vscode-languageserver/node";
 
 type DiagnosticList = Diagnostic[];
 
-let s_diagnosticStack: DiagnosticList[] = [];
+const s_diagnosticStack: DiagnosticList[] = [];
 
 let s_currentDiagnostics: DiagnosticList = [];
 
@@ -24,7 +24,7 @@ function pushDiagnostic(range: Range, message: string, severity: DiagnosticSever
         range: range,
         message: message,
         severity: severity,
-        source: "AngelScript",
+        source: "NVGT",
     });
 }
 

@@ -35,8 +35,7 @@ export function activate(context: ExtensionContext) {
     const clientOptions: LanguageClientOptions = {
         // Register the server for plain text documents
         documentSelector: [
-            {scheme: 'file', language: 'angelscript'},
-            {scheme: 'file', language: 'angelscript-predefined'}
+            {scheme: 'file', language: 'nvgt'},
         ],
         synchronize: {
             // Notify the server about file changes to '.clientrc files contained in the workspace
@@ -46,8 +45,8 @@ export function activate(context: ExtensionContext) {
 
     // Create the language client and start the client.
     client = new LanguageClient(
-        'angelScript',
-        'AngelScript Language Server',
+        'NVGT',
+        'NVGT Language Server',
         serverOptions,
         clientOptions
     );
