@@ -1,53 +1,21 @@
-# AngelScript Language Server for VSCode
+# NVGT Language Server for VSCode
 
-**This extension provides useful features to make AngelScript development easier and faster.**
-
-![sample.png](https://raw.githubusercontent.com/sashi0034/angel-lsp/main/sample.png)
-
-# Features
-
-This extension parses scripts and provides the following benefits.
-
-- Syntax Highlight for AngelScript
-- Autocompletion
-- Type Checking
-- Go to Definition
-- Find References
-- Symbol Renaming
-- Snippets
-- Formatter
-
-> Note: Since it is still under development, some features of AngelScript are not yet fully supported.
+NVGT can be found [here](https://github.com/samtupy/nvgt) and is based off of Angelscript
 
 # Getting Started
 
-Once installed, the Language Server uses the file `as.predefined` to perform the analysis according to the application you are using.
-
-Crate and place `as.predefined` in the workspace directory.
-
-![folder_example.png](https://raw.githubusercontent.com/sashi0034/angel-lsp/main/folder_example.png)
-
-Write type definitions and function definitions for your application in `as.predefined` using the same syntax as in AngelScript.
-
-This will give you symbol completion.
-
-See examples below:
-- [as.predefined](./examples/OpenSiv3D/as.predefined) for [OpenSiv3D](https://github.com/Siv3D/OpenSiv3D) (v0.6)
-
+As of right now, no version has been published on the marketplace as there are plans to provide a more useful system of type hints and completion. If you wish to run this, launch the debugger with the client configuration from within VSCode.
 
 # TODO
 
-These features are still in the development stage.
+As this is a fork of [Angel LSP](https://github.com/sashi0034/angel-lsp/), we currently share all of the features that are marked as todo on there. If anything changes, this section will be updated.
 
-- Support for import statements
-- Hover to view details on symbols
-- Add more user settings
-- Handler checking
-- Code actions
-- Debugger
+# What about as.predefined?
+
+Since this is specifically aimed at NVGT, the support for placing as.predefined in the current directory of your project has been removed. Instead, the extension comes with the standard library definitions in the `resources` folder of the server. It should get copied into the out folder during builds and is loaded on startup.
+
+It should be noted that the extension is not always up-to-date with the main branch of NVGT. The process for updating the definition file still requires human intervention.
 
 # Issues and Contributions
 
-Reports of problems and feature requests are welcome on [GitHub Issues](https://github.com/sashi0034/angel-lsp/issues)
-
-Also, if you have `as.predefined` for a library you use, committing it as an example is highly appreciated.
+Feel free to contribute or to open an issue if you find a bug, as much of this is untested. Please include enough detail so that your issue can be reliably reproduced.
